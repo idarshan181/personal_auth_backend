@@ -15,7 +15,7 @@ router.post(
     check("mobile")
       .not()
       .isEmpty()
-      .withMessage("Password is required")
+      .withMessage("Mobile number is required")
       .isLength({
         min: 10,
         max: 13,
@@ -48,7 +48,6 @@ router.post(
       imageURL,
       city,
       country,
-      resetToken,
     } = req.body;
 
     /* if (!(firstName && lastName && email && username && password && mobile)) {
@@ -80,7 +79,7 @@ router.post(
         imageURL: imageURL,
         city: city,
         country: country,
-        resetToken: resetToken,
+        resetToken: "",
       });
       if (!newUser) {
         return res.status(500).json({
@@ -129,6 +128,7 @@ router.post(
     }
     try {
       let { email, username, password } = req.body;
+      console.log(req.body);
       if (email) {
         email = email.toLowerCase();
       }
@@ -172,6 +172,7 @@ router.post(
         message: "User logged in successfully",
       });
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         status: false,
         error: error,
